@@ -1,12 +1,13 @@
-export default function buildFactoryTask({ makeId, sanitize }) {
-  return function factoryTask({
+export default function buildTaskFactory (makeId, sanitize) {
+
+  return function taskFactory({
     id = makeId(),
     createdOn = Date.now(),
     modifiedOn = Date.now(),
     projectId,
     title,
     description,
-    status = "todo",
+    status = "todo"
   } = {}) {
 
     if (!projectId) 
@@ -27,4 +28,5 @@ export default function buildFactoryTask({ makeId, sanitize }) {
       getStatus: () => status,
     })
   }
+
 }

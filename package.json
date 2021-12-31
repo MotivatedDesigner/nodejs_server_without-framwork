@@ -13,10 +13,14 @@
     "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
   },
   "main": "index.js",
-  "_moduleAliases": {
-    "@Entities": "src/domain/entities"
+  "type": "module",
+  "imports": {
+    "#Entities": "./src/domain/entities/index.js",
+    "#Utils": "./src/utils/index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cuid": "^2.1.8"
+  },
   "devDependencies": {
     "nodemon": "^2.0.15"
   },

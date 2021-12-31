@@ -1,7 +1,4 @@
-const task = require('./task')
-const project = require('./project')
 
-module.exports = {
-  task,
-  project
-}
+import buildTaskFactory from "./task.js"
+
+export const taskFactory = buildTaskFactory()
