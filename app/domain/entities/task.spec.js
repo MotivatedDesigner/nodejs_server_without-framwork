@@ -2,7 +2,7 @@ import { makeFakeTask } from "../../../__test__/index.js"
 import buildMakeTask from "./task.js"
 import { Id, Sanitizer } from "../../../utils/index.js"
 
-export const makeTask = buildMakeTask(Id, Sanitizer)
+const makeTask = buildMakeTask(Id, Sanitizer)
 
 describe('Task', () => {
   
@@ -14,6 +14,11 @@ describe('Task', () => {
   it('must have a title', () => {
     const task = makeFakeTask({ title: null })
     expect(() => makeTask(task)).toThrow('Task must have a title')
+  })
+  
+  it('title must be longer than 2 characters', () => {
+    const task = makeFakeTask({ title: 'aa' })
+    expect(() => makeTask(task)).toThrow('Task title must be longer than 2 characters')
   })
 
   // it('must have a valid post id', () => {
