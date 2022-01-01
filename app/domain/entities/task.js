@@ -1,6 +1,6 @@
-export default function buildTaskFactory(makeId, sanitize) {
+export default function buildMakeTask(makeId, sanitize) {
 
-  return function taskFactory({
+  return function makeTask({
     id = makeId(),
     createdOn = Date.now(),
     modifiedOn = Date.now(),
@@ -11,9 +11,9 @@ export default function buildTaskFactory(makeId, sanitize) {
   } = {}) {
 
     if (!projectId) 
-      throw new Error('Task must have belong to a project.')
+      throw new Error('Task must belong to a project')
     if (title.length < 2) 
-      throw new Error("Task title must be longer than 2 characters.")
+      throw new Error("Task title must be longer than 2 characters")
 
     title = sanitize(title).trim()
     description = sanitize(description).trim()
