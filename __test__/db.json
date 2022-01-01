@@ -1,10 +1,7 @@
 {
   "tasks": [
     {
-      "id": "omma"
-    },
-    {
-      "id": "lala"
+      "id": "testId"
     }
   ]
 }
