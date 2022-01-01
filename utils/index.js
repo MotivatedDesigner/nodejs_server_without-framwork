@@ -1,5 +1,5 @@
-import Id from "./make_id.js"
-import Sanitizer from "./sanitizer.js"
+import Id from "./Id.js"
+import Sanitizer from "./Sanitizer.js"
 
 export {
   Id,

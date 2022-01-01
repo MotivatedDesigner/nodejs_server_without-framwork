@@ -1,7 +1,7 @@
-export default function buildMakeTask(makeId, sanitize) {
+export default function buildMakeTask(Id, Sanitizer) {
 
   return function makeTask({
-    id = makeId(),
+    id = Id.makeId(),
     createdOn = Date.now(),
     modifiedOn = Date.now(),
     projectId,
@@ -17,8 +17,8 @@ export default function buildMakeTask(makeId, sanitize) {
     if (title.length < 2) 
       throw new Error("Task title must be longer than 2 characters")
 
-    title = sanitize(title).trim()
-    description = sanitize(description).trim()
+    title = Sanitizer.sanitize(title).trim()
+    description = Sanitizer.sanitize(description).trim()
 
     return Object.freeze({
       getId: () => id,

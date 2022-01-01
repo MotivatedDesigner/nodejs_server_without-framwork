@@ -1,6 +1,8 @@
 import { makeFakeTask } from "../../../__test__/index.js"
 import buildMakeTask from "./task.js"
-const makeTask = buildMakeTask()
+import { Id, Sanitizer } from "../../../utils/index.js"
+
+export const makeTask = buildMakeTask(Id, Sanitizer)
 
 describe('Task', () => {
   
