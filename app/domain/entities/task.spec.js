@@ -5,124 +5,119 @@ import { Id, Sanitizer } from "../../../utils/index.js"
 const makeTask = buildMakeTask(Id, Sanitizer)
 
 describe('Task', () => {
+
+  it('can be created', () => {
+    const fakeTask = makeFakeTask()
+    const task = makeTask(fakeTask)
+    expect({
+      id: task.getId(),
+      projectId: task.getProjectId(),
+      title: task.getTitle(),
+      description: task.getDescription(),
+      status: task.getStatus(),
+      createdOn: task.getCreatedOn(),
+      modifiedOn: task.getModifiedOn(),
+    }).toEqual(fakeTask)
+  })
+
+  it('can create an id', () => {
+    const fakeTask = makeFakeTask({ id: undefined })
+    const task = makeTask(fakeTask)
+    expect(task.getId()).toBeDefined()
+  })
   
   it('must belong to a project', () => {
-    const task = makeFakeTask({ projectId: null })
-    expect(() => makeTask(task)).toThrow('Task must belong to a project')
+    const fakeTask = makeFakeTask({ projectId : undefined })
+    expect(() => makeTask(fakeTask)).toThrow('Task must belong to a project')
   })
   
   it('must have a title', () => {
-    const task = makeFakeTask({ title: null })
-    expect(() => makeTask(task)).toThrow('Task must have a title')
+    const fakeTask = makeFakeTask({ title: null })
+    expect(() => makeTask(fakeTask)).toThrow('Task must have a title')
   })
   
   it('title must be longer than 2 characters', () => {
-    const task = makeFakeTask({ title: 'aa' })
-    expect(() => makeTask(task)).toThrow('Task title must be longer than 2 characters')
+    const fakeTask = makeFakeTask({ title: 'aa' })
+    expect(() => makeTask(fakeTask)).toThrow('Task title must be longer than 2 characters')
+  })
+
+  it('title can be set', () => {
+    const fakeTask = makeFakeTask({ title: 'title' })
+    
+    const task = makeTask(fakeTask)
+    expect(task.getTitle()).toBe('title')
+
+    task.setTitle('newTitle')
+    expect(task.getTitle()).toBe('newTitle')
   })
   
-  it('status must be supported', () => {
-    const task = makeFakeTask({ status: 'notSupported' })
-    expect(() => makeTask(task)).toThrow('Task status not supported')
+  it('description can be set', () => {
+    const fakeTask = makeFakeTask({ description: 'description' })
+
+    const task = makeTask(fakeTask)
+    expect(task.getDescription()).toBe('description')
+
+    task.setDescription('newDescription')
+    expect(task.getDescription()).toBe('newDescription')
   })
 
-  // it('must have a valid post id', () => {
-  //   const comment = makeFakeComment({ postId: null })
-  //   expect(() => makeComment(comment)).toThrow('Comment must contain a postId.')
-  // })
-  // it('must have valid text', () => {
-  //   const comment = makeFakeComment({ text: null })
-  //   expect(() => makeComment(comment)).toThrow(
-  //     'Comment must include at least one character of text.'
-  //   )
-  // })
-  // it('can be in reply to another comment', () => {
-  //   const comment = makeFakeComment({ replyToId: 'invalid' })
-  //   expect(() => makeComment(comment)).toThrow(
-  //     'If supplied. Comment must contain a valid replyToId.'
-  //   )
-  //   const notInReply = makeFakeComment({ replyToId: undefined })
-  //   expect(() => makeComment(notInReply)).not.toThrow()
-  // })
-  // it('can have an id', () => {
-  //   const comment = makeFakeComment({ id: 'invalid' })
-  //   expect(() => makeComment(comment)).toThrow('Comment must have a valid id.')
-  //   const noId = makeFakeComment({ id: undefined })
-  //   expect(() => makeComment(noId)).not.toThrow()
-  // })
-  // it('can create an id', () => {
-  //   const noId = makeFakeComment({ id: undefined })
-  //   const comment = makeComment(noId)
-  //   expect(comment.getId()).toBeDefined()
-  // })
-  // it('can be published', () => {
-  //   const unpublished = makeFakeComment({ published: false })
-  //   const comment = makeComment(unpublished)
-  //   expect(comment.isPublished()).toBe(false)
-  //   comment.publish()
-  //   expect(comment.isPublished()).toBe(true)
-  // })
-  // it('can be unpublished', () => {
-  //   const unpublished = makeFakeComment({ published: true })
-  //   const comment = makeComment(unpublished)
-  //   expect(comment.isPublished()).toBe(true)
-  //   comment.unPublish()
-  //   expect(comment.isPublished()).toBe(false)
-  // })
-  // it('is createdOn now in UTC', () => {
-  //   const noCreationDate = makeFakeComment({ createdOn: undefined })
-  //   expect(noCreationDate.createdOn).not.toBeDefined()
-  //   const d = makeComment(noCreationDate).getCreatedOn()
-  //   expect(d).toBeDefined()
-  //   expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
-  // })
-  // it('is modifiedOn now in UTC', () => {
-  //   const noModifiedOnDate = makeFakeComment({ modifiedOn: undefined })
-  //   expect(noModifiedOnDate.modifiedOn).not.toBeDefined()
-  //   const d = makeComment(noModifiedOnDate).getCreatedOn()
-  //   expect(d).toBeDefined()
-  //   expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
-  // })
-  // it('sanitizes its text', () => {
-  //   const sane = makeComment({
-  //     ...makeFakeComment({ text: '<p>This is fine</p>' })
-  //   })
-  //   const insane = makeComment({
-  //     ...makeFakeComment({
-  //       text: '<script>This is not so fine</script><p>but this is ok</p>'
-  //     })
-  //   })
-  //   const totallyInsane = makeFakeComment({
-  //     text: '<script>All your base are belong to us!</script>'
-  //   })
+  it('description is sanitized', () => {
+    const fakeTask_cleanDescription = makeFakeTask({ description: '<p>This is fine</p>' })
+    const task_cleanDescription = makeTask(fakeTask_cleanDescription)
+    expect(task_cleanDescription.getDescription()).toBe('<p>This is fine</p>')
+    
+    const fakeTask_dirtydescription = makeFakeTask({ description: '<script>This is not fine</script><p>but this is ok</p>' })
+    const task_dirtyDescription = makeTask(fakeTask_dirtydescription)
+    expect(task_dirtyDescription.getDescription()).toBe('<p>but this is ok</p>')
+  })
 
-  //   expect(sane.getText()).toBe('<p>This is fine</p>')
-  //   expect(insane.getText()).toBe('<p>but this is ok</p>')
-  //   expect(() => makeComment(totallyInsane)).toThrow(
-  //     'Comment contains no usable text.'
-  //   )
-  // })
-  // it('can be marked deleted', () => {
-  //   const fake = makeFakeComment()
-  //   const c = makeComment(fake)
-  //   c.markDeleted()
-  //   expect(c.isDeleted()).toBe(true)
-  //   expect(c.getText()).toBe('.xX This comment has been deleted Xx.')
-  //   expect(c.getAuthor()).toBe('deleted')
-  // })
-  // it('includes a hash', () => {
-  //   const fakeComment = {
-  //     author: 'Bruce Wayne',
-  //     text: "I'm batman.",
-  //     postId: 'cjt65art5350vy000hm1rp3s9',
-  //     published: true,
-  //     source: { ip: '127.0.0.1' }
-  //   }
-  //   // md5 from: http://www.miraclesalad.com/webtools/md5.php
-  //   expect(makeComment(fakeComment).getHash()).toBe(
-  //     '7bb94f070d9305976b5381b7d3e8ad8a'
-  //   )
-  // })
+  it('status have a default value', () => {
+    const fakeTask = makeFakeTask({ status: undefined })
+    const Task = makeTask(fakeTask)
+    expect(Task.getStatus()).toBe('todo')
+  })
+
+  it('status must be supported', () => {
+    const fakeTask = makeFakeTask({ status: 'notSupported' })
+    expect(() => makeTask(fakeTask)).toThrow('Task status not supported')
+  })
+
+  it('status can be set & supported to do so', () => {
+    const fakeTask = makeFakeTask()
+    const task = makeTask(fakeTask)
+
+    expect(() => task.setStatus('omma')).toThrow('Task status not supported')
+
+    task.setStatus('done')
+    expect(task.getStatus()).toBe('done')
+  })
+
+  it('createdOn is a valid UTC-GMT', () => {
+    const fakeTask = makeFakeTask({ createdOn: undefined })
+    expect(fakeTask.createdOn).not.toBeDefined()
+    const taskCreatedOn = makeTask(fakeTask).getCreatedOn()
+    expect(taskCreatedOn).toBeDefined()
+    expect(new Date(taskCreatedOn).toUTCString().substring(26)).toBe('GMT')
+  })
+
+  it('modifiedOn is a valid UTC-GMT', () => {
+    const fakeTask = makeFakeTask({ modifiedOn: undefined })
+    expect(fakeTask.modifiedOn).not.toBeDefined()
+
+    let taskModifiedOn = makeTask(fakeTask).getModifiedOn()
+    expect(taskModifiedOn).toBeDefined()
+    expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
+  })
+
+  it('modifiedOn can be set to Date.now() & is a valid UTC-GMT', () => {
+    const fakeTask = makeFakeTask()
+    const task = makeTask(fakeTask)
+  
+    task.setModifiedOn()
+    const taskModifiedOn = task.getModifiedOn()
+    expect(taskModifiedOn).toEqual(Date.now())
+    expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
+  })
   // it('must have a source', () => {
   //   const noSource = makeFakeComment({ source: undefined })
   //   expect(() => makeComment(noSource)).toThrow('Comment must have a source.')

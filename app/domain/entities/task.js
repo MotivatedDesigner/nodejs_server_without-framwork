@@ -2,35 +2,47 @@ export default function buildMakeTask(Id, Sanitizer) {
 
   return function makeTask({
     id = Id.makeId(),
-    createdOn = Date.now(),
-    modifiedOn = Date.now(),
     projectId,
     title,
     description,
-    status = "todo"
+    status = "todo",
+    createdOn = Date.now(),
+    modifiedOn = Date.now()
   } = {}) {
+
+    const states = ['todo', 'progress', 'done']
 
     if (!projectId) 
       throw new Error('Task must belong to a project')
-    if(!['todo', 'progress', 'done'].includes(status))
+    if(!states.includes(status))
       throw new Error('Task status not supported')
-      
-    title = Sanitizer.sanitize(title).trim()
-    description = Sanitizer.sanitize(description).trim()
-
     if (!title) 
       throw new Error("Task must have a title")
     if (title.length <= 2) 
       throw new Error("Task title must be longer than 2 characters")
 
+    description = Sanitizer.sanitize(description).trim()
+    function setStatus(newStatus) {
+      if(states.includes(newStatus))
+        return status = newStatus
+      throw new Error('Task status not supported')
+    }
+    function setDescription(newDescription) {
+      description = Sanitizer.sanitize(newDescription)
+    }
+    
     return Object.freeze({
       getId: () => id,
-      getCreatedOn: () => createdOn,
-      getModifiedOn: () => modifiedOn,
       getProjectId: () => projectId,
       getTitle: () => title,
+      setTitle: (newTitle) => title = newTitle,
       getDescription: () => description,
+      setDescription,
       getStatus: () => status,
+      setStatus,
+      getCreatedOn: () => createdOn,
+      getModifiedOn: () => modifiedOn,
+      setModifiedOn: () => modifiedOn = Date.now()
     })
   }
 
