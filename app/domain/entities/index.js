@@ -1,4 +1,4 @@
-import buildMakeTask from "./task.js"
+import buildTaskEntity from "./task.js"
 import { Id, Sanitizer } from "#Utils"
 
-export const makeTask = buildMakeTask(Id, Sanitizer)
+export const taskEntity = buildTaskEntity(Id, Sanitizer)

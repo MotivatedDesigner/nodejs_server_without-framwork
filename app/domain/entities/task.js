@@ -1,6 +1,6 @@
-export default function buildMakeTask(Id, Sanitizer) {
+export default function buildTaskEntity(Id, Sanitizer) {
 
-  return function makeTask({
+  return function taskEntity({
     id = Id.makeId(),
     projectId,
     title,
