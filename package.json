@@ -12,10 +12,14 @@
     "type": "git",
     "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
   },
+
   "main": "main.js",
   "type": "module",
   "imports": {
     "#Entities": "./app/domain/entities/index.js",
+    "#UseCases": "./app/domain/use_cases/index.js",
+    "#Controllers": "./app/adapters/controllers/index.js",
+    "#DataAccess": "./app/adapters/data_access/index.js",
     "#Utils": "./utils/index.js"
   },
   "dependencies": {
