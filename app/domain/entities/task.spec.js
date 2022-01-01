@@ -1,9 +1,12 @@
 import { makeFakeTask } from "../../../__test__/index.js"
+import buildMakeTask from "./task.js"
+const makeTask = buildMakeTask()
 
 describe('Task', () => {
-  it('must have an author', () => {
+  
+  it('must belong to a project', () => {
     const task = makeFakeTask({ projectId: null })
-    // expect(() => makeComment(comment)).toThrow('Comment must have an author.')
+    expect(() => makeTask(task)).toThrow('Task must belong to a project')
   })
 
   // it('must have a valid post id', () => {
