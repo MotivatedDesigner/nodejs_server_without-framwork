@@ -12,7 +12,6 @@
     "type": "git",
     "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
   },
-
   "main": "main.js",
   "type": "module",
   "imports": {
@@ -24,7 +23,8 @@
     "#Test": "./__test__/index.js"
   },
   "dependencies": {
-    "cuid": "^2.1.8"
+    "cuid": "^2.1.8",
+    "sanitize-html": "^2.6.1"
   },
   "devDependencies": {
     "faker": "^5.5.3",
