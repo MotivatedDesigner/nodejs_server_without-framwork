@@ -6,7 +6,7 @@ const Id = Object.freeze({
   isValidId: cuid.isCuid
 })
 
-export default function makeFakeTask(overrides) {
+export default function fakeTask(overrides) {
   const task = {
     id: Id.makeId(),
     projectId: Id.makeId(),
