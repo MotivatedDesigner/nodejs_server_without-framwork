@@ -6,13 +6,13 @@ export default function makeAddTask (taskEntity, taskDatabase) {
     if (exists) return exists
 
     return taskDatabase.insert({
-      id: taskEntity.getId(),
-      projectId: taskEntity.getProjectId(),
-      title: taskEntity.getTitle(),
-      description: taskEntity.getDescription(),
-      status: taskEntity.getStatus(),
-      createdOn: taskEntity.getCreatedOn(),
-      modifiedOn: taskEntity.getModifiedOn()
+      id: task.getId(),
+      projectId: task.getProjectId(),
+      title: task.getTitle(),
+      description: task.getDescription(),
+      status: task.getStatus(),
+      createdOn: task.getCreatedOn(),
+      modifiedOn: task.getModifiedOn()
     })
   }
   

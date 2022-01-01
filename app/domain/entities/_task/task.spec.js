@@ -1,4 +1,4 @@
-import { makeFakeTask } from "../../../../__test__/index.js"
+import { fakeTask } from "../../../../__test__/index.js"
 import buildTaskEntity from "./task.js"
 import { Id, Sanitizer } from "../../../../utils/index.js"
 
@@ -7,8 +7,8 @@ const taskEntity = buildTaskEntity(Id, Sanitizer)
 describe('Task', () => {
 
   it('can be created', () => {
-    const fakeTask = makeFakeTask()
-    const task = taskEntity(fakeTask)
+    const testTask = fakeTask()
+    const task = taskEntity(testTask)
     expect({
       id: task.getId(),
       projectId: task.getProjectId(),
@@ -17,34 +17,34 @@ describe('Task', () => {
       status: task.getStatus(),
       createdOn: task.getCreatedOn(),
       modifiedOn: task.getModifiedOn(),
-    }).toEqual(fakeTask)
+    }).toEqual(testTask)
   })
 
   it('can create an id', () => {
-    const fakeTask = makeFakeTask({ id: undefined })
-    const task = taskEntity(fakeTask)
+    const testTask = fakeTask({ id: undefined })
+    const task = taskEntity(testTask)
     expect(task.getId()).toBeDefined()
   })
   
   it('must belong to a project', () => {
-    const fakeTask = makeFakeTask({ projectId : undefined })
-    expect(() => taskEntity(fakeTask)).toThrow('Task must belong to a project')
+    const testTask = fakeTask({ projectId : undefined })
+    expect(() => taskEntity(testTask)).toThrow('Task must belong to a project')
   })
   
   it('must have a title', () => {
-    const fakeTask = makeFakeTask({ title: null })
-    expect(() => taskEntity(fakeTask)).toThrow('Task must have a title')
+    const testTask = fakeTask({ title: null })
+    expect(() => taskEntity(testTask)).toThrow('Task must have a title')
   })
   
   it('title must be longer than 2 characters', () => {
-    const fakeTask = makeFakeTask({ title: 'aa' })
-    expect(() => taskEntity(fakeTask)).toThrow('Task title must be longer than 2 characters')
+    const testTask = fakeTask({ title: 'aa' })
+    expect(() => taskEntity(testTask)).toThrow('Task title must be longer than 2 characters')
   })
 
   it('title can be set', () => {
-    const fakeTask = makeFakeTask({ title: 'title' })
+    const testTask = fakeTask({ title: 'title' })
     
-    const task = taskEntity(fakeTask)
+    const task = taskEntity(testTask)
     expect(task.getTitle()).toBe('title')
 
     task.setTitle('newTitle')
@@ -52,9 +52,9 @@ describe('Task', () => {
   })
   
   it('description can be set', () => {
-    const fakeTask = makeFakeTask({ description: 'description' })
+    const testTask = fakeTask({ description: 'description' })
 
-    const task = taskEntity(fakeTask)
+    const task = taskEntity(testTask)
     expect(task.getDescription()).toBe('description')
 
     task.setDescription('newDescription')
@@ -62,29 +62,29 @@ describe('Task', () => {
   })
 
   it('description is sanitized', () => {
-    const fakeTask_cleanDescription = makeFakeTask({ description: '<p>This is fine</p>' })
-    const task_cleanDescription = taskEntity(fakeTask_cleanDescription)
+    const testTask_cleanDescription = fakeTask({ description: '<p>This is fine</p>' })
+    const task_cleanDescription = taskEntity(testTask_cleanDescription)
     expect(task_cleanDescription.getDescription()).toBe('<p>This is fine</p>')
     
-    const fakeTask_dirtydescription = makeFakeTask({ description: '<script>This is not fine</script><p>but this is ok</p>' })
-    const task_dirtyDescription = taskEntity(fakeTask_dirtydescription)
+    const testTask_dirtydescription = fakeTask({ description: '<script>This is not fine</script><p>but this is ok</p>' })
+    const task_dirtyDescription = taskEntity(testTask_dirtydescription)
     expect(task_dirtyDescription.getDescription()).toBe('<p>but this is ok</p>')
   })
 
   it('status have a default value', () => {
-    const fakeTask = makeFakeTask({ status: undefined })
-    const Task = taskEntity(fakeTask)
+    const testTask = fakeTask({ status: undefined })
+    const Task = taskEntity(testTask)
     expect(Task.getStatus()).toBe('todo')
   })
 
   it('status must be supported', () => {
-    const fakeTask = makeFakeTask({ status: 'notSupported' })
-    expect(() => taskEntity(fakeTask)).toThrow('Task status not supported')
+    const testTask = fakeTask({ status: 'notSupported' })
+    expect(() => taskEntity(testTask)).toThrow('Task status not supported')
   })
 
   it('status can be set & supported to do so', () => {
-    const fakeTask = makeFakeTask()
-    const task = taskEntity(fakeTask)
+    const testTask = fakeTask()
+    const task = taskEntity(testTask)
 
     expect(() => task.setStatus('omma')).toThrow('Task status not supported')
 
@@ -93,29 +93,30 @@ describe('Task', () => {
   })
 
   it('createdOn is a valid UTC-GMT', () => {
-    const fakeTask = makeFakeTask({ createdOn: undefined })
+    const testTask = fakeTask({ createdOn: undefined })
     expect(fakeTask.createdOn).not.toBeDefined()
-    const taskCreatedOn = taskEntity(fakeTask).getCreatedOn()
+    const taskCreatedOn = taskEntity(testTask).getCreatedOn()
     expect(taskCreatedOn).toBeDefined()
     expect(new Date(taskCreatedOn).toUTCString().substring(26)).toBe('GMT')
   })
 
   it('modifiedOn is a valid UTC-GMT', () => {
-    const fakeTask = makeFakeTask({ modifiedOn: undefined })
+    const testTask = fakeTask({ modifiedOn: undefined })
     expect(fakeTask.modifiedOn).not.toBeDefined()
 
-    let taskModifiedOn = taskEntity(fakeTask).getModifiedOn()
+    let taskModifiedOn = taskEntity(testTask).getModifiedOn()
     expect(taskModifiedOn).toBeDefined()
     expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
   })
 
   it('modifiedOn can be set to Date.now() & is a valid UTC-GMT', () => {
-    const fakeTask = makeFakeTask()
-    const task = taskEntity(fakeTask)
+    const testTask = fakeTask()
+    const task = taskEntity(testTask)
   
     task.setModifiedOn()
     const taskModifiedOn = task.getModifiedOn()
-    expect(taskModifiedOn).toEqual(Date.now())
+    expect(taskModifiedOn).toBeGreaterThanOrEqual(Date.now())
+    expect(taskModifiedOn).toBeLessThan( Date.now()+10 )
     expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
   })
   // it('must have a source', () => {
