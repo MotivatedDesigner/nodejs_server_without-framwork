@@ -8,6 +8,11 @@ describe('Task', () => {
     const task = makeFakeTask({ projectId: null })
     expect(() => makeTask(task)).toThrow('Task must belong to a project')
   })
+  
+  it('must have a title', () => {
+    const task = makeFakeTask({ title: null })
+    expect(() => makeTask(task)).toThrow('Task must have a title')
+  })
 
   // it('must have a valid post id', () => {
   //   const comment = makeFakeComment({ postId: null })

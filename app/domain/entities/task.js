@@ -12,6 +12,8 @@ export default function buildMakeTask(makeId, sanitize) {
 
     if (!projectId) 
       throw new Error('Task must belong to a project')
+    if (!title) 
+      throw new Error("Task must have a title")
     if (title.length < 2) 
       throw new Error("Task title must be longer than 2 characters")
 
