@@ -20,6 +20,11 @@ describe('Task', () => {
     const task = makeFakeTask({ title: 'aa' })
     expect(() => makeTask(task)).toThrow('Task title must be longer than 2 characters')
   })
+  
+  it('status must be supported', () => {
+    const task = makeFakeTask({ status: 'notSupported' })
+    expect(() => makeTask(task)).toThrow('Task status not supported')
+  })
 
   // it('must have a valid post id', () => {
   //   const comment = makeFakeComment({ postId: null })

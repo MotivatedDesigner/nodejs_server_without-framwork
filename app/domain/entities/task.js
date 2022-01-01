@@ -12,7 +12,9 @@ export default function buildMakeTask(Id, Sanitizer) {
 
     if (!projectId) 
       throw new Error('Task must belong to a project')
-
+    if(!['todo', 'progress', 'done'].includes(status))
+      throw new Error('Task status not supported')
+      
     title = Sanitizer.sanitize(title).trim()
     description = Sanitizer.sanitize(description).trim()
 
