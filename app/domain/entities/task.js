@@ -1,4 +1,4 @@
-export default function buildTaskFactory (makeId, sanitize) {
+export default function buildTaskFactory(makeId, sanitize) {
 
   return function taskFactory({
     id = makeId(),

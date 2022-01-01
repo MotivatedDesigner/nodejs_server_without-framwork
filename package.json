@@ -1,7 +1,7 @@
 {
   "name": "nodejs_server_without-framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "a nodejs clean architecture app with custom framework",
   "author": "Ayoub Elmendoub",
   "license": "MIT",
   "bugs": {
@@ -12,11 +12,11 @@
     "type": "git",
     "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
   },
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "imports": {
-    "#Entities": "./src/domain/entities/index.js",
-    "#Utils": "./src/utils/index.js"
+    "#Entities": "./app/domain/entities/index.js",
+    "#Utils": "./utils/index.js"
   },
   "dependencies": {
     "cuid": "^2.1.8"
@@ -25,7 +25,7 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node main.js",
+    "dev": "nodemon main.js"
   }
 }
