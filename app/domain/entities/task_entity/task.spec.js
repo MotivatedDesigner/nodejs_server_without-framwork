@@ -1,6 +1,6 @@
-import { makeFakeTask } from "../../../__test__/index.js"
+import { makeFakeTask } from "../../../../__test__/index.js"
 import buildTaskEntity from "./task.js"
-import { Id, Sanitizer } from "../../../utils/index.js"
+import { Id, Sanitizer } from "../../../../utils/index.js"
 
 const taskEntity = buildTaskEntity(Id, Sanitizer)
 
