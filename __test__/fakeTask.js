@@ -21,5 +21,3 @@ export default function makeFakeTask(overrides) {
     ...overrides
   }
 }
-
-console.log(makeFakeTask())

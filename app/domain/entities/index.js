@@ -1,4 +1,3 @@
+import buildMakeTask from "./task.js"
 
-import buildTaskFactory from "./task.js"
-
-export const taskFactory = buildTaskFactory()
+export const makeTask = buildMakeTask()

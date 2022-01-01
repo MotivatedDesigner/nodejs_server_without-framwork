@@ -12,6 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
   },
+
   "main": "main.js",
   "type": "module",
   "imports": {
@@ -19,17 +20,20 @@
     "#UseCases": "./app/domain/use_cases/index.js",
     "#Controllers": "./app/adapters/controllers/index.js",
     "#DataAccess": "./app/adapters/data_access/index.js",
-    "#Utils": "./utils/index.js"
+    "#Utils": "./utils/index.js",
+    "#Test": "./__test__/index.js"
   },
   "dependencies": {
     "cuid": "^2.1.8"
   },
   "devDependencies": {
     "faker": "^5.5.3",
+    "jest": "^27.4.5",
     "nodemon": "^2.0.15"
   },
   "scripts": {
     "start": "node main.js",
-    "dev": "nodemon main.js"
+    "dev": "nodemon main.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
   }
 }
