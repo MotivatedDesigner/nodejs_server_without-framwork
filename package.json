@@ -17,8 +17,7 @@
   "imports": {
     "#Entities": "./app/domain/entities/index.js",
     "#UseCases": "./app/domain/use_cases/index.js",
-    "#Controllers": "./app/adapters/controllers/index.js",
-    "#DataAccess": "./app/adapters/data_access/index.js",
+    "#Adapters/*": "./app/adapters/*/index.js",
     "#Utils": "./utils/index.js",
     "#Test": "./__test__/index.js"
   },
