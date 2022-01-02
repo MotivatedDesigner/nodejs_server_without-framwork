@@ -108,17 +108,6 @@ describe('Task', () => {
     expect(taskModifiedOn).toBeDefined()
     expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
   })
-
-  it('modifiedOn can be set to Date.now() & is a valid UTC-GMT', () => {
-    const testTask = fakeTask()
-    const task = taskEntity(testTask)
-  
-    task.setModifiedOn()
-    const taskModifiedOn = task.getModifiedOn()
-    expect(taskModifiedOn).toBeGreaterThanOrEqual(Date.now())
-    expect(taskModifiedOn).toBeLessThan( Date.now()+10 )
-    expect(new Date(taskModifiedOn).toUTCString().substring(26)).toBe('GMT')
-  })
   // it('must have a source', () => {
   //   const noSource = makeFakeComment({ source: undefined })
   //   expect(() => makeComment(noSource)).toThrow('Comment must have a source.')

@@ -42,7 +42,15 @@ export default function buildTaskEntity(Id, Sanitizer) {
       setStatus,
       getCreatedOn: () => createdOn,
       getModifiedOn: () => modifiedOn,
-      setModifiedOn: () => modifiedOn = Date.now()
+      getAll: () => Object.freeze({
+        id,
+        projectId,
+        title,
+        description,
+        status,
+        createdOn,
+        modifiedOn
+      })
     })
   }
 
