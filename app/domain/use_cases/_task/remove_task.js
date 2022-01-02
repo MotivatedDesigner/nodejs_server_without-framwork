@@ -5,10 +5,9 @@ export default function makeRemoveTask(taskDatabase) {
       throw new Error('You must supply a task id')
 
     const taskToDelete = await taskDatabase.findById(id)
-    if (!taskToDelete) 
+    if (!taskToDelete || taskToDelete.length === 0) 
       return deleteNothing()
-
-    return deleteTask(taskToDelete.id)
+    return deleteTask(taskToDelete[0].id)
   }
 
   function deleteNothing() {
