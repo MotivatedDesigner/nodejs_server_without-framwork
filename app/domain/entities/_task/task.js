@@ -6,6 +6,7 @@ export default function buildTaskEntity(Id, Sanitizer) {
     title,
     description,
     status = "todo",
+    dueDate = null,
     createdOn = Date.now(),
     modifiedOn = Date.now()
   } = {}) {
@@ -40,6 +41,8 @@ export default function buildTaskEntity(Id, Sanitizer) {
       setDescription,
       getStatus: () => status,
       setStatus,
+      getDueDate: () => dueDate,
+      setDueDate: (newDueDate) => dueDate = newDueDate,
       getCreatedOn: () => createdOn,
       getModifiedOn: () => modifiedOn,
       getAll: () => Object.freeze({
@@ -48,6 +51,7 @@ export default function buildTaskEntity(Id, Sanitizer) {
         title,
         description,
         status,
+        dueDate,
         createdOn,
         modifiedOn
       })

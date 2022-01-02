@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "cuid": "^2.1.8",
+    "mysql2": "^2.3.3",
     "sanitize-html": "^2.6.1"
   },
   "devDependencies": {

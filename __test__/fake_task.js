@@ -13,6 +13,7 @@ export default function fakeTask(overrides) {
     title: faker.lorem.words( 2 + Math.floor(Math.random()*3) ),
     description: faker.lorem.paragraph( Math.floor(Math.random()*2) ),
     status: faker.helpers.randomize(['todo', 'progress', 'done']),
+    dueDate: Date.now(),
     createdOn: Date.now(),
     modifiedOn: Date.now(),
   }

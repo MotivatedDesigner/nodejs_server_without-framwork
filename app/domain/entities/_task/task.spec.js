@@ -15,6 +15,7 @@ describe('Task', () => {
       title: task.getTitle(),
       description: task.getDescription(),
       status: task.getStatus(),
+      dueDate: task.getDueDate(),
       createdOn: task.getCreatedOn(),
       modifiedOn: task.getModifiedOn(),
     }).toEqual(testTask)
