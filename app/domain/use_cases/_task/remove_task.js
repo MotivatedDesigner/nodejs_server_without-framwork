@@ -7,7 +7,7 @@ export default function makeRemoveTask(taskDatabase) {
     const taskToDelete = await taskDatabase.findById(id)
     if (!taskToDelete || taskToDelete.length === 0) 
       return deleteNothing()
-    return deleteTask(taskToDelete[0].id)
+    return deleteTask(taskToDelete.id)
   }
 
   function deleteNothing() {

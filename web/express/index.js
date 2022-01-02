@@ -9,6 +9,7 @@ export default function makeExpressApp(taskController, notFound) {
     // TODO change taskController to projectController
     app.get('/projects/:projectId/tasks', expressAdapter(taskController.getTasks))
     app.delete('/tasks/:taskId', expressAdapter(taskController.deleteTask))
+    app.patch('/tasks/:taskId', expressAdapter(taskController.patchTask))
     app.use(expressAdapter(notFound))
 
     return app

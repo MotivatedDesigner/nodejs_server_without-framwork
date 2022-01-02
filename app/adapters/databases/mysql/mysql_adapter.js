@@ -13,7 +13,7 @@ export default function mysqlAdapter() {
     return new Promise((resolve) => {
       dbConnection.query('SELECT * FROM tasks WHERE id = ? ', id, (error, result) => {
           if(error) throw Error(error.message)
-          resolve(result)
+          resolve(result[0])
       })
     })
   }

@@ -1,17 +1,20 @@
-import { removeTask, listTasks } from "#UseCases"
+import { removeTask, listTasks, editTask } from "#UseCases"
 
 import notFound from "./not_found.js"
 
 import makeGetTasks from "./_task/get_tasks.js"
 import makeDeleteTask from "./_task/delete_task.js"
+import makePatchTask from "./_task/patch_task.js"
 
 const getTasks = makeGetTasks(listTasks)
 const deleteTask = makeDeleteTask(removeTask)
+const patchTask = makePatchTask(editTask)
 
 export const notFoundController = notFound 
 export const taskController = Object.freeze({
   getTasks,
-  deleteTask
+  deleteTask,
+  patchTask
 })
 
 // const test = async () => {
