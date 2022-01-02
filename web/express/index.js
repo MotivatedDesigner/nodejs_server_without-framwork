@@ -6,8 +6,9 @@ export default function makeExpressApp(taskController) {
   return function expressApp() {
     const app = express()
     app.use(express.json())
-
-    app.delete('/tasks/:id', expressAdapter(taskController.deleteTask))
+    // TODO change taskController to projectController
+    app.get('/projects/:projectId/tasks', expressAdapter(taskController.getTasks))
+    app.delete('/tasks/:taskId', expressAdapter(taskController.deleteTask))
 
     return app
   }

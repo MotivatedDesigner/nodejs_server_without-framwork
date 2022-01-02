@@ -1,10 +1,13 @@
-import { removeTask } from "#UseCases"
+import { removeTask, listTasks } from "#UseCases"
 
+import makeGetTasks from "./_task/get_tasks.js"
 import makeDeleteTask from "./_task/delete_task.js"
 
+const getTasks = makeGetTasks(listTasks)
 const deleteTask = makeDeleteTask(removeTask)
 
 export const taskController = Object.freeze({
+  getTasks,
   deleteTask
 })
 

@@ -1,15 +1,14 @@
-export default function makeDeleteTask(removeTask) {
-
-  return async function deleteTask(httpRequest) {
+export default function makeGetTasks(listTasks) {
+  return async function getTasks(httpRequest) {
     const headers = {
       'Content-Type': 'application/json'
     }
     try {
-      const deleted = await removeTask(httpRequest.params.taskId)
+      const tasks = await listTasks(httpRequest.params.projectId)
       return {
         headers,
-        statusCode: deleted.deletedCount === 0 ? 404 : 200,
-        body: { deleted }
+        statusCode: 200,
+        body: tasks
       }
     } catch (e) {
       // TODO: Error logging
@@ -23,5 +22,4 @@ export default function makeDeleteTask(removeTask) {
       }
     }
   }
-
 }

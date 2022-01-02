@@ -3,14 +3,24 @@ import dbConnection from "./mysql.js"
 export default function mysqlAdapter() {
   return Object.freeze({
     findById,
+    findByProjectId,
     insert,
     update,
     remove
   })
 
   function findById(id) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       dbConnection.query('SELECT * FROM tasks WHERE id = ? ', id, (error, result) => {
+          if(error) throw Error(error.message)
+          resolve(result)
+      })
+    })
+  }
+
+  function findByProjectId(id) {
+    return new Promise((resolve) => {
+      dbConnection.query('SELECT * FROM tasks WHERE projectId = ? ', id, (error, result) => {
           if(error) throw Error(error.message)
           resolve(result)
       })
