@@ -5,8 +5,8 @@ export default function makeAddTask (taskEntity, taskDatabase) {
     const exists = await taskDatabase.findById(task.getId())
     if (exists) 
       return exists
-      
-    return taskDatabase.insert( task.getAll() )
+
+    return await taskDatabase.insert( task.getAll() )
   }
   
 }
