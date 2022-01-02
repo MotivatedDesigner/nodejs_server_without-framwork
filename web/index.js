@@ -1,7 +1,7 @@
-import { taskController } from "#Adapters/controllers"
+import { taskController, notFoundController } from "#Adapters/controllers"
 
 import makeExpressApp from "./express/index.js"
 
-const expressApp = makeExpressApp(taskController)
+const expressApp = makeExpressApp(taskController, notFoundController)
 
 export default expressApp()
