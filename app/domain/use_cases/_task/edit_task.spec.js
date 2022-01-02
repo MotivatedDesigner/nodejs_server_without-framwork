@@ -10,7 +10,19 @@ describe('edit Task', () => {
 
   it('must include an id', () => {
     const testTask = fakeTask({ id: undefined })
-    expect(editTask(testTask)).rejects.toThrow('You must supply an id.')
+    expect(editTask(testTask)).rejects.toThrow('You must supply an id')
+  })
+
+  it('must exist in db', () => {
+    const testTask = fakeTask({ id: "doesNotExist" })
+    expect(editTask(testTask)).rejects.toThrow('Task not found')
+  })
+
+  it('must be updated succesufully', async () => {
+    const testTask = fakeTask({ id: "ckxx4oerm0002u4uy3lm3e8xv" })
+    const updatedTask = await editTask(testTask)
+    testTask.modifiedOn = updatedTask?.modifiedOn
+    expect(updatedTask).toMatchObject(testTask)
   })
 
 })
