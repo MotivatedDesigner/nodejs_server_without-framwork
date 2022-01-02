@@ -19,10 +19,12 @@
     "#UseCases": "./app/domain/use_cases/index.js",
     "#Adapters/*": "./app/adapters/*/index.js",
     "#Utils": "./utils/index.js",
+    "#Web": "./web/index.js",
     "#Test": "./__test__/index.js"
   },
   "dependencies": {
     "cuid": "^2.1.8",
+    "express": "^4.17.2",
     "mysql2": "^2.3.3",
     "sanitize-html": "^2.6.1"
   },
