@@ -1,0 +1,41 @@
+{
+  "name": "nodejs_server_without-framework",
+  "version": "1.0.0",
+  "description": "a nodejs clean architecture app with custom framework",
+  "author": "Ayoub Elmendoub",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MotivatedDesigner/nodejs_server_without-framwork/issues"
+  },
+  "homepage": "https://github.com/MotivatedDesigner/nodejs_server_without-framwork#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MotivatedDesigner/nodejs_server_without-framwork.git"
+  },
+  "main": "main.js",
+  "type": "module",
+  "imports": {
+    "#Entities": "./app/domain/entities/index.js",
+    "#UseCases": "./app/domain/use_cases/index.js",
+    "#Adapters/*": "./app/adapters/*/index.js",
+    "#Utils": "./utils/index.js",
+    "#Web": "./web/index.js",
+    "#Test": "./__test__/index.js"
+  },
+  "dependencies": {
+    "cuid": "^2.1.8",
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3",
+    "sanitize-html": "^2.6.1"
+  },
+  "devDependencies": {
+    "faker": "^5.5.3",
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+  }
+}
