@@ -10,7 +10,6 @@ export default function makeEditTask(taskEntity, taskDatabase) {
       throw new RangeError('Task not found')
 
     const newTask = taskEntity({ ...existing, ...changes, modifiedOn: undefined })
-    console.log(newTask.getModifiedOn());
     // TODO adding hash
     // if (newTask.getHash() === existing.hash) {
     //   return existing

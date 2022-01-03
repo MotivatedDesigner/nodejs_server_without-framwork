@@ -4,7 +4,7 @@ import { Id, Sanitizer } from "../../../../utils/index.js"
 
 const taskEntity = buildTaskEntity(Id, Sanitizer)
 
-describe('Task', () => {
+describe('Task Entity', () => {
 
   it('can be created', () => {
     const testTask = fakeTask()

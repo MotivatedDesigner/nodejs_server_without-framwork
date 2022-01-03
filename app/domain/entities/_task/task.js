@@ -23,6 +23,7 @@ export default function buildTaskEntity(Id, Sanitizer) {
       throw new Error("Task title must be longer than 2 characters")
 
     description = Sanitizer.sanitize(description).trim()
+    
     function setStatus(newStatus) {
       if(states.includes(newStatus))
         return status = newStatus
